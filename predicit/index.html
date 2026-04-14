@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Predictor</title>
+    <!-- Use a premium font: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="background-elements">
+        <div class="blob shape-1"></div>
+        <div class="blob shape-2"></div>
+        <div class="blob shape-3"></div>
+    </div>
+
+    <!-- Ultra Premium Landing Page -->
+    <div id="landing-page" class="landing-page">
+        <div class="landing-content">
+            <h1 class="landing-title">
+                <span class="gradient-text">Predict</span> Tomorrow.<br>
+                Shape <span class="gradient-text-alt">Today.</span>
+            </h1>
+            <p class="landing-subtitle">Discover the premier AI-driven academic forecasting engine. Experience a tailored pathway to your absolute potential.</p>
+            <button id="enterBtn" class="premium-btn">
+                <span class="btn-shine"></span>
+                <span>Initialize Engine</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Predictor App (Hidden initially) -->
+    <main id="app-container" class="container hidden-initially">
+        <div class="glass-card header-card">
+            <div class="icon-wrapper">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 14L22 9L12 4L2 9L12 14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M22 9V15C22 15 16 19 12 19C8 19 2 15 2 15V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h1>Performance Predictor</h1>
+            <p>Leverage our advanced mock-algorithm to forecast your academic success.</p>
+        </div>
+
+        <div class="glass-card content-card">
+            <form id="prediction-form" class="predictor-form">
+                
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="studyHours">Study Hours / Week</label>
+                        <div class="range-wrapper">
+                            <input type="range" id="studyHours" name="studyHours" min="0" max="40" step="0.5" value="10">
+                            <span class="value-display" id="studyHoursValue">10.0</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="attendance">Class Attendance (%)</label>
+                        <div class="range-wrapper">
+                            <input type="range" id="attendance" name="attendance" min="0" max="100" step="1" value="85">
+                            <span class="value-display" id="attendanceValue">85%</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="previousScore">Previous Test Score (/100)</label>
+                        <div class="range-wrapper">
+                            <input type="range" id="previousScore" name="previousScore" min="0" max="100" step="1" value="75">
+                            <span class="value-display" id="previousScoreValue">75</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="sleepHours">Daily Sleep (Hours)</label>
+                        <div class="range-wrapper">
+                            <input type="range" id="sleepHours" name="sleepHours" min="0" max="12" step="0.5" value="7.5">
+                            <span class="value-display" id="sleepHoursValue">7.5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group full-width toggle-group">
+                    <label>Extracurricular Activities</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="extracurricular" value="Yes" checked>
+                            <span class="radio-button">Engaged</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="extracurricular" value="No">
+                            <span class="radio-button">None</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="predictBtn">
+                    <span class="btn-text">Generate Prediction</span>
+                    <div class="btn-loader"></div>
+                </button>
+            </form>
+
+            <div id="result-container" class="result-container hidden">
+                <div class="score-circle">
+                    <svg viewBox="0 0 100 100" class="progress-ring">
+                        <circle class="progress-ring__circle-bg" stroke-width="6" cx="50" cy="50" r="44"/>
+                        <circle id="score-ring" class="progress-ring__circle" stroke-width="6" cx="50" cy="50" r="44"/>
+                    </svg>
+                    <div class="score-text">
+                        <span id="final-score">0</span>
+                        <span class="score-label">/ 100</span>
+                    </div>
+                </div>
+                
+                <h3 id="grade-display" class="grade-display">Predicted Grade: <span>-</span></h3>
+                
+                <div class="insights-container">
+                    <h4>Actionable Insights</h4>
+                    <ul id="insights-list">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+                
+                <button type="button" class="reset-btn" id="resetBtn">Recalculate</button>
+            </div>
+        </div>
+
+        <div class="glass-card tips-card">
+            <div class="tips-header">
+                <h2>💡 Tips for Success</h2>
+                <p>Unlock your absolute highest potential with these proven strategies.</p>
+            </div>
+            <div class="tips-grid">
+                <div class="tip-item">
+                    <div class="tip-icon">✨</div>
+                    <h3>Spaced Repetition</h3>
+                    <p>Review material at increasingly spaced intervals to dramatically improve long-term memory retention.</p>
+                </div>
+                <div class="tip-item">
+                    <div class="tip-icon">🎯</div>
+                    <h3>Active Recall</h3>
+                    <p>Test yourself on concepts rather than passively reading. It stimulates the brain to build stronger neural pathways.</p>
+                </div>
+                <div class="tip-item">
+                    <div class="tip-icon">💤</div>
+                    <h3>Sleep Hygiene</h3>
+                    <p>Aim for 7-9 hours of sleep. Memory consolidation happens largely during the REM cycle.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card flashcard-card">
+            <div class="flashcard-header">
+                <h2>🧠 Knowledge Hub</h2>
+                <p>Test your active recall. Click the card to reveal the answer.</p>
+            </div>
+            
+            <div class="flashcard-container">
+                <div id="flashcard" class="flashcard">
+                    <div class="flashcard-front">
+                        <span class="card-label">Question</span>
+                        <h3 id="fc-question">What is active recall?</h3>
+                        <p class="click-hint">Click to flip <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path d="M9 12l2 2 4-4"></path></svg></p>
+                    </div>
+                    <div class="flashcard-back">
+                        <span class="card-label">Answer</span>
+                        <p id="fc-answer">Testing yourself on concepts rather than passively reading to build stronger neural pathways.</p>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" id="nextQuestionBtn" class="next-btn">
+                <span>Next Question</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+        </div>
+
+        <div class="glass-card todo-card">
+            <div class="todo-header">
+                <h2>🎯 Task Manager</h2>
+                <p>Organize your goals. Dominate your day.</p>
+            </div>
+            
+            <form id="todo-form" class="todo-input-area">
+                <input type="text" id="todo-input" placeholder="What needs to be conquered?" autocomplete="off" required>
+                <button type="submit" class="todo-add-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </button>
+            </form>
+
+            <ul id="todo-list" class="todo-list">
+                <!-- Dynamically populated tasks -->
+            </ul>
+        </div>
+    </main>
+
+    <!-- Chatbot Floating UI -->
+    <div id="chat-widget" class="chat-widget">
+        <button id="chatToggleBtn" class="chat-toggle-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+        </button>
+        
+        <div id="chat-window" class="glass-card chat-window hidden-chat">
+            <div class="chat-header">
+                <h3><span class="gradient-text">AI</span> Advisor</h3>
+                <button id="chatCloseBtn" class="chat-close-btn">&times;</button>
+            </div>
+            <div id="chatMessages" class="chat-messages">
+                <div class="chat-bubble ai-bubble">
+                    Hello. I am the AI Advisor. How can I assist you in mastering your performance?
+                </div>
+            </div>
+            <form id="chatForm" class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Ask for strategies..." autocomplete="off" required>
+                <button type="submit" class="chat-send-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
